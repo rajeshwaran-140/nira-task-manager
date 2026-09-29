@@ -1,0 +1,38 @@
+# Render Blueprint: one web service (API + web app + scheduler) and one PostgreSQL database.
+# Render Dashboard -> New -> Blueprint -> pick this repo. Values marked "sync: false" are asked for once, in the dashboard.
+services:
+  - type: web
+    name: nira
+    runtime: python
+    region: oregon               # keep the same region as the database below
+    # "starter" is always on. The reminder scheduler lives inside this process, so a plan that sleeps
+    # (the free plan) misses reminder calls. For a throw-away test only, you may change this to "free".
+    plan: free                   # no reminder calls in this setup, so a sleeping free plan is fine
+    buildCommand: pip install -r requirements.txt
+    # ONE process only: it also runs the scheduler. Do not add --workers.
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT --proxy-headers --forwarded-allow-ips="*"
+    healthCheckPath: /health
+    envVars:
+      - key: APP_ENV
+        value: prod
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: DATABASE_URL
+        fromDatabase: {name: nira-db, property: connectionString}
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ENCRYPTION_KEY
+        sync: false              # Fernet key, see README (keep it: changing it makes saved AI keys unreadable)
+      - key: APP_BASE_URL
+        sync: false              # your public address, https://<name>.onrender.com (no trailing slash)
+      - key: CORS_ORIGINS
+        sync: false              # same address as APP_BASE_URL
+      - key: SMS_PROVIDER
+        value: "off"             # no Twilio: no OTP SMS and no reminder calls; sign in with email + password
+      - key: SCHEDULER_ENABLED
+        value: "false"
+databases:
+  - name: nira-db
+    plan: free                   # Render's free database is deleted after ~30 days: fine for testing, upgrade to keep data
+    region: oregon
+    ipAllowList: []              # internal connections only (from the web service); not reachable from the internet

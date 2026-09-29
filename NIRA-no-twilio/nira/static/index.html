@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#7c4dff">
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/icon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="NIRA">
+<title>NIRA – Calls You Before You Forget</title>
+<style>
+:root{--tx:#22164a;--mu:#7a6f9b;--pr:#7c4dff;--pk:#f72585;--or:#ff9f1c;--gr:#00b894;--bd:#eadfff;--cd:#fff;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html,body{height:100%;margin:0;background:linear-gradient(170deg,#fff0f7 0%,#eaf3ff 50%,#fff9dd 100%)}*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+#app{max-width:430px;height:100%;margin:0 auto;display:flex;flex-direction:column;color:var(--tx);font:15px/1.45 system-ui,-apple-system,"Noto Sans Tamil",sans-serif;position:relative;overflow:hidden}
+h1,h2,h3{margin:0}.hd{padding:16px 18px 6px;display:flex;align-items:center;gap:10px}.hd h1{font-size:23px;flex:1}
+.logo{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,var(--pr),var(--pk));color:#fff;display:grid;place-items:center;font-weight:800;box-shadow:0 4px 12px #7c4dff55}
+.scr{flex:1;overflow-y:auto;padding:8px 18px 18px}
+.cd{background:var(--cd);border:1px solid var(--bd);border-left:6px solid var(--c,var(--pr));border-radius:16px;padding:13px;margin-bottom:10px;box-shadow:0 3px 10px #7c4dff14}
+.plain{border-left-width:1px}.mu{color:var(--mu);font-size:13px}
+.btn{display:block;width:100%;background:linear-gradient(135deg,var(--pr),var(--pk));color:#fff;border:0;border-radius:14px;padding:13px;font-size:16px;font-weight:700;cursor:pointer;margin:8px 0;box-shadow:0 4px 12px #f7258533}
+.btn.o{background:#fff;color:var(--pr);border:1.5px solid var(--pr);box-shadow:none}.btn.sm{width:auto;display:inline-block;padding:7px 12px;font-size:13px;margin:0}
+.next{background:linear-gradient(135deg,#7c4dff,#f72585 62%,#ff9f1c);color:#fff;border-radius:24px;padding:20px;margin-bottom:12px;box-shadow:0 10px 24px #f7258544}
+.next .big{font-size:26px;font-weight:800;line-height:1.15;margin:8px 0 2px}.next .mu{color:#ffe9f5}
+.cdn{font:800 34px/1.1 ui-monospace,Menlo,Consolas,monospace;margin:10px 0 4px;letter-spacing:-1px;text-shadow:0 2px 8px #0003}
+.chip{display:inline-block;border-radius:10px;padding:3px 9px;font-size:12px;font-weight:700}
+.chip.t{background:#ffe066;color:#5a3d00}
+.row{display:flex;align-items:center;gap:10px}.sp{flex:1;min-width:0}.sp b{overflow-wrap:anywhere}
+input,select,textarea{width:100%;padding:12px;border-radius:12px;border:1.5px solid var(--bd);background:#fff;color:var(--tx);font:inherit;margin:5px 0}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--pr);box-shadow:0 0 0 3px #7c4dff22}
+.two{display:flex;gap:8px}.two>*{flex:1;min-width:0}
+nav{display:flex;background:#fff;border-top:1px solid var(--bd);box-shadow:0 -4px 14px #7c4dff14}nav button{flex:1;border:0;background:none;color:var(--mu);padding:9px 0 8px;font-size:11px;cursor:pointer}nav b{display:block;font-size:21px;font-weight:400}nav .on{color:var(--pk);font-weight:800}
+.sw{width:48px;height:27px;border-radius:14px;background:#d9cff5;position:relative;border:0;cursor:pointer;flex:none}.sw:after{content:'';position:absolute;top:3px;left:3px;width:21px;height:21px;border-radius:50%;background:#fff;transition:.2s}.sw.on{background:var(--gr)}.sw.on:after{left:24px}
+.seg{display:flex;background:#fff;border:1.5px solid var(--bd);border-radius:14px;padding:3px;margin:10px 0}.seg button{flex:1;border:0;background:none;padding:9px;border-radius:11px;font-weight:700;color:var(--mu);cursor:pointer}.seg .on{background:linear-gradient(135deg,var(--pr),var(--pk));color:#fff}
+.link{background:none;border:0;color:var(--pr);font-weight:700;cursor:pointer;padding:8px 0;font-size:14px}
+.hint{background:#fff6cc;border:1px dashed var(--or);border-radius:12px;padding:8px 10px;font-size:13px;margin:6px 0}
+.ov{position:absolute;inset:0;z-index:9;display:flex;flex-direction:column;align-items:center;background:linear-gradient(170deg,#7c4dff,#f72585 70%,#ff9f1c);color:#fff;padding:60px 22px 34px;text-align:center}
+.av{width:104px;height:104px;border-radius:50%;background:#ffe066;color:#5a3d00;display:grid;place-items:center;font:800 52px system-ui;margin:20px 0 12px}
+.av.r{animation:pl 1.3s infinite}@keyframes pl{0%{box-shadow:0 0 0 0 #ffe066aa}100%{box-shadow:0 0 0 36px #ffe06600}}
+@media(prefers-reduced-motion:reduce){.av.r{animation:none}}
+.tr{flex:1;width:100%;overflow-y:auto;text-align:left;margin:14px 0}.tr div{background:#ffffff33;border-radius:14px;padding:10px 12px;margin:7px 0;max-width:90%}.tr .me{background:#ffe066;color:#5a3d00;margin-left:auto}
+.cb{display:flex;gap:10px;width:100%}.cb .btn{margin:4px 0;box-shadow:none}.btn.g{background:#00b894}.btn.r{background:#e63946}.btn.w{background:#ffffff33}
+.tst{position:absolute;left:50%;bottom:80px;transform:translateX(-50%);background:#22164a;color:#fff;padding:9px 14px;border-radius:12px;font-size:13px;z-index:20;max-width:90%;text-align:center}
+.stt{border-radius:12px;padding:9px 11px;font-size:13px;font-weight:600;margin:8px 0;overflow-wrap:anywhere}.stt.ok{background:#e3faf3;color:#007a60;border:1px solid #9ee6d2}.stt.no{background:#ffe8ea;color:#b3202c;border:1px solid #f5a9b0}.stt.wt{background:#f2ecff;color:var(--pr);border:1px solid var(--bd)}
+.brand{text-align:center;padding:26px 0 4px}.brand .logo{width:64px;height:64px;font-size:32px;border-radius:20px;margin:0 auto 10px}
+.mic{display:grid;place-items:center;width:128px;height:128px;margin:10px auto 6px;border:0;border-radius:50%;font-size:54px;line-height:1;color:#fff;background:linear-gradient(135deg,var(--pr),var(--pk));box-shadow:0 10px 26px #f7258555;cursor:pointer}
+.mic:disabled{opacity:.6;cursor:default}.mic.on{background:linear-gradient(135deg,var(--pk),var(--or));animation:mp 1.3s infinite}
+@keyframes mp{0%{box-shadow:0 0 0 0 #f7258599}100%{box-shadow:0 0 0 40px #f7258500}}
+@media(prefers-reduced-motion:reduce){.mic.on{animation:none;box-shadow:0 0 0 10px #f7258544}}
+.vst{font-weight:700;color:var(--mu);min-height:22px;margin:4px 0}.vlive{min-height:30px;font-size:19px;font-weight:700;overflow-wrap:anywhere;margin:2px 0 6px}
+.vb{border-radius:14px;padding:9px 12px;margin:6px 0;max-width:92%;overflow-wrap:anywhere;white-space:pre-wrap}.vb.me{background:#ffe066;color:#5a3d00;margin-left:auto}.vb.ni{background:#fff;border:1px solid var(--bd);border-left:5px solid var(--pr)}
+.vcard .btn{box-shadow:none;margin:6px 0 2px}.vf{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:6px 0;border-top:1px dashed var(--bd)}
+.vex{display:block;width:100%;text-align:left;background:none;border:0;padding:6px 0;color:var(--tx);font:inherit;cursor:pointer;text-decoration:underline dotted}
+</style></head><body><div id="app"></div>
+<script>
+const $=q=>document.querySelector(q),val=id=>($('#'+id)||{}).value||'',pad=n=>String(n).padStart(2,'0');
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const CAT={emi:['💰','EMI / Loan','#ff5a5f'],bill:['💳','Bill','#ff9f1c'],exam:['🎓','Exam','#7c4dff'],assign:['📝','Assignment','#00b8a9'],appt:['📅','Appointment','#2d9cff'],work:['💼','Work','#f72585'],other:['🔔','Other','#8d99ae']};
+let tok='';try{tok=localStorage.getItem('nira_tok')||''}catch(e){}
+let U=null,ST=null,D=[],tab='home',screen='auth',edit=null,call=null,LOG=[],CH=[],au={m:'phone',step:'req'},pv={step:'req'},AIS=null,AIMSG=null;
+const dstr=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const offd=n=>{const d=new Date();d.setDate(d.getDate()+n);return dstr(d)};
+const daysTo=iso=>Math.round((new Date(iso.slice(0,10)+'T00:00')-new Date(dstr(new Date())+'T00:00'))/864e5);
+const when=n=>n<0?'Overdue':n==0?'Today':n==1?'Tomorrow':'In '+n+' days';
+const t12=iso=>{let h=+iso.slice(11,13),m=iso.slice(14,16);return (h%12||12)+':'+m+' '+(h<12?'AM':'PM')};
+const fmt=iso=>new Date(iso).toLocaleDateString('en-IN',{day:'numeric',month:'short'})+' · '+t12(iso);
+const pending=()=>D.filter(x=>!x.done).sort((a,b)=>new Date(a.due_at)-new Date(b.due_at));
+const cdText=iso=>{let s=Math.floor((new Date(iso)-Date.now())/1000);if(s<0)return 'Overdue!';const d=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60);return (d?d+'d ':'')+pad(h)+'h '+pad(m)+'m '+pad(s%60)+'s'};
+const errm=e=>e&&e.en?(ST?(ST.language=='ta'?e.ta:e.en):e.en+' / '+e.ta):String(e);
+function toast(m){const e=document.createElement('div');e.className='tst';e.textContent=m;$('#app').appendChild(e);setTimeout(()=>e.remove(),2600)}
+async function api(p,o={}){const h={'Content-Type':'application/json'};if(tok)h.Authorization='Bearer '+tok;let r;
+ try{r=await fetch(p,{method:o.m||(o.b?'POST':'GET'),headers:h,body:o.b?JSON.stringify(o.b):undefined})}catch(e){throw{en:'Network problem. Check your connection.',ta:'நெட்வொர்க் பிரச்சனை. இணைப்பை சரிபார்க்கவும்.'}}
+ if(r.status==204)return{};const j=await r.json().catch(()=>({}));
+ if(!r.ok){if(r.status==401&&tok)logout(true);throw j.detail||{en:'Error '+r.status,ta:'பிழை '+r.status}}return j}
+const guard=async f=>{try{await f()}catch(e){toast(errm(e));R()}};
+function logout(quiet){vReset();tok='';U=ST=null;D=[];CH=[];AIS=AIMSG=null;screen='auth';au={m:'phone',step:'req'};try{localStorage.removeItem('nira_tok')}catch(e){}R();if(!quiet)toast('Signed out')}
+
+/* ---- NIRA's call script (Tamil / English) ---- */
+const say=(i,l)=>{const n=daysTo(i.due_at),tm=t12(i.due_at),w=n<=0?(l=='ta'?'இன்னைக்கே':'today'):n==1?(l=='ta'?'நாளைக்கு':'tomorrow'):(l=='ta'?n+' நாள்ல':'in '+n+' days');
+ return l=='ta'?{hi:`வணக்கம்! நான் NIRA பேசுறேன். உங்க ${i.title} ${w} ${tm}-க்கு due ஆகுது. மறந்துடாதீங்க. இன்னைக்கே முடிச்சுட்டா safe-ஆ இருக்கும்.`,ask:'இதை reminder-ஆ note பண்ணட்டுமா?',ok:'சரி! Done-ஆ mark பண்ணிட்டேன். வேற ஏதாவது வேணுமா?',later:'சரி, இன்னைக்கு சாயங்காலம் மறுபடியும் call பண்றேன்.',bye:'நன்றி! உங்க நாள் நல்லா இருக்கட்டும்.'}
+ :{hi:`Hello! This is NIRA. Your ${i.title} is due ${w} at ${tm}. Paying it in time keeps you safe.`,ask:'Shall I note this as a reminder?',ok:'Done, I have marked it complete. Anything else?',later:"Okay, I will call you again this evening.",bye:'Thank you. Have a great day!'}};
+function speak(t){if(!window.speechSynthesis)return;try{const u=new SpeechSynthesisUtterance(t);u.lang=ST.language=='ta'?'ta-IN':'en-IN';speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+function startCall(id){if(call)return;const i=D.find(x=>x.id==id);call={i,st:'ring',tr:[],sc:say(i,ST.language),t0:0};R()}
+function answer(){call.st='live';call.t0=Date.now();say1(call.sc.hi);setTimeout(()=>say1(call.sc.ask),1200)}
+function say1(t){if(!call)return;call.tr.push({n:1,t});R();speak(t);const e=$('.tr');if(e)e.scrollTop=1e5}
+function reply(k){const l=call.sc,ta=ST.language=='ta';call.tr.push({n:0,t:k=='ok'?(ta?'ஆமா, note பண்ணுங்க / paid':'Yes, note it / paid'):(ta?'இன்னும் கொஞ்சம் நேரம் கழிச்சு':'Remind me later')});if(k=='ok')call.done=1;
+ setTimeout(()=>{say1(l[k]);setTimeout(()=>say1(l.bye),1400)},400)}
+function endCall(){const c=call;try{speechSynthesis.cancel()}catch(e){}
+ LOG.unshift({t:c.i.title,at:new Date().toLocaleString([],{day:'numeric',month:'short',hour:'numeric',minute:'2-digit'}),st:c.st=='ring'?'Missed':c.done?'Completed':'Answered',dur:c.t0?Math.round((Date.now()-c.t0)/1000):0});call=null;R();toast('Preview only – nothing was changed')}
+
+/* ---- Auth ---- */
+async function okAuth(r){tok=r.access_token;try{localStorage.setItem('nira_tok',tok)}catch(e){}U=r.user;await boot()}
+const sendOtp=()=>guard(async()=>{const r=await api('/auth/phone/request-otp',{b:{phone:val('ph')}});au.phone=val('ph');au.step='otp';au.dev=r.dev_otp;R()});
+const verOtp=()=>guard(async()=>okAuth(await api('/auth/phone/verify',{b:{phone:au.phone,code:val('otp'),name:val('nm')}})));
+const emailLogin=()=>guard(async()=>okAuth(await api('/auth/email/login',{b:{email:val('em'),password:val('pw')}})));
+const emailReg=()=>guard(async()=>okAuth(await api('/auth/email/register',{b:{email:val('em'),password:val('pw')}})));
+const magicReq=()=>guard(async()=>{await api('/auth/email/magic/request',{b:{email:val('em')}});toast('Link sent. In dev, see the server terminal.')});
+const pvSend=()=>guard(async()=>{const r=await api('/me/phone/request-otp',{b:{phone:val('pp')}});pv={step:'otp',phone:val('pp'),dev:r.dev_otp};R()});
+const pvVer=()=>guard(async()=>{U=await api('/me/phone/verify',{b:{phone:pv.phone,code:val('pc')}});ST=await api('/settings');screen='app';toast('Phone verified ✅');R()});
+async function boot(){try{if(!U)U=await api('/me');ST=await api('/settings');D=await api('/deadlines?status=all');screen=U.needs_phone?'phone':'app';pv={step:'req'};AIS=null;loadAI();loadCH()}catch(e){if(tok)toast(errm(e));screen='auth'}R()}
+const load=async()=>{D=await api('/deadlines?status=all');R()};
+
+/* ---- Deadlines ---- */
+function save(){const t=val('nt').trim(),d=val('nd'),tm=val('ntm');if(!t)return toast('Enter a title');if(!d||!tm)return toast('Pick date and time');
+ const b={title:t,category:val('nk'),due_at:d+'T'+tm,repeat:val('nr'),notes:val('nn')};
+ guard(async()=>{await api(edit?'/deadlines/'+edit:'/deadlines',{m:edit?'PATCH':'POST',b});edit=null;await load();toast('Saved ✅')})}
+const startEdit=id=>{edit=id;R();$('.scr').scrollTop=0};
+const toggle=id=>guard(async()=>{const i=D.find(x=>x.id==id);const r=await api('/deadlines/'+id+(i.done?'/undo':'/complete'),{m:'POST'});await load();if(r.rolled)toast('Next cycle set 🔁')});
+const del=id=>{if(confirm('Delete this deadline?'))guard(async()=>{await api('/deadlines/'+id,{m:'DELETE'});if(edit==id)edit=null;await load()})};
+
+/* ---- Settings ---- */
+const setS=o=>guard(async()=>{ST=await api('/settings',{m:'PUT',b:o});R()});
+let TCALL=false;const testCall=()=>{if(TCALL||!confirm('Place ONE real test call to your phone now?\nஉங்கள் தொலைபேசிக்கு ஒரு சோதனை அழைப்பு செய்யவா?'))return;TCALL=true;guard(async()=>{try{const r=await api('/calls/test',{m:'POST'});toast('Calling '+r.calling+' 📞');setTimeout(loadCH,4000)}finally{TCALL=false}})};
+function callsToggle(){if(ST.calls_enabled)return setS({calls_enabled:false});
+ if(!ST.phone_verified){toast('Verify your phone first');pv={step:'req'};screen='phone';return R()}
+ if(!ST.consent_to_call&&!confirm('Allow NIRA to phone you with deadline reminders?\nநினைவூட்ட NIRA உங்களை அழைக்க அனுமதிக்கிறீர்களா?'))return;setS({consent_to_call:true,calls_enabled:true})}
+/* ---- AI settings (Part 3A). The key is read from the password input only at Save time and sent once.
+   It is never kept in a variable or in any browser storage; after saving only the last 4 characters come back. ---- */
+const AIN={gemini:'Google Gemini',openai:'OpenAI'};
+const loadCH=()=>api('/calls/history').then(r=>{CH=r;if(tab=='log'&&screen=='app')R()}).catch(()=>{});
+const loadAI=()=>api('/settings/ai').then(r=>{AIS=r;R()}).catch(e=>{AIMSG={ok:false,t:errm(e)};R()});
+function aiProv(p){const m=$('#aim');if(!m||!AIS)return;const d=AIS.default_models,o=p=='gemini'?'openai':'gemini',c=m.value.trim();if(!c||c==d[o])m.value=d[p];m.placeholder=d[p]}
+async function aiSave(){const b={provider:val('aip'),model:val('aim').trim(),key:val('aik').trim()};
+ try{AIS=await api('/settings/ai',{m:'PUT',b});AIMSG=null;R();toast('AI settings saved ✅')}catch(e){toast(errm(e))}}
+async function aiTest(){if(!AIS)return;
+ if(val('aik').trim()||val('aip')!=AIS.provider||val('aim').trim()!=AIS.model)return toast('Save your changes first, then tap Test');
+ AIMSG={ok:null,t:'Testing…'};R();
+ try{const r=await api('/settings/ai/test',{m:'POST'});AIMSG={ok:true,t:'Key works ✅ ('+(r.source=='server'?"NIRA's server key":'your key')+')'}}catch(e){AIMSG={ok:false,t:errm(e)}}R()}
+const aiDel=()=>{if(confirm('Remove your saved AI key?\nசேமித்த AI key ஐ நீக்கவா?'))guard(async()=>{AIS=await api('/settings/ai',{m:'DELETE'});AIMSG=null;R();toast('Key removed')})};
+const delAcc=()=>{if(confirm('Delete your account and ALL data? This cannot be undone.'))guard(async()=>{await api('/me',{m:'DELETE'});logout(true);toast('Account deleted')})};
+
+/* ---- Screens ---- */
+const catChip=k=>`<span class="chip" style="background:${CAT[k][2]}22;color:${CAT[k][2]}">${CAT[k][0]} ${CAT[k][1]}</span>`;
+function authScr(){const p=au.m=='phone';return `<div class="scr"><div class="brand"><div class="logo">N</div><h1>NIRA</h1><div class="mu">Calls you before you forget · மறக்கும் முன் அழைக்கிறேன்</div></div>
+<div class="seg"><button class="${p?'on':''}" onclick="au={m:'phone',step:'req'};R()">📱 Phone</button><button class="${p?'':'on'}" onclick="au={m:'email'};R()">✉️ Email</button></div><div class="cd plain">
+${p?(au.step=='req'?`<b>Your mobile number</b><input id="ph" type="tel" inputmode="tel" placeholder="+91 98765 43210" value="${esc(au.phone||'')}"><button class="btn" onclick="sendOtp()">Send OTP</button>`
+:`<b>Enter the OTP sent to ${esc(au.phone)}</b>${au.dev?`<div class="hint">🧪 Dev mode OTP: <b>${au.dev}</b></div>`:''}<input id="otp" inputmode="numeric" maxlength="6" placeholder="6-digit OTP" value="${au.dev||''}"><input id="nm" placeholder="Your name (first time only)"><button class="btn" onclick="verOtp()">Verify &amp; continue</button><button class="link" onclick="au.step='req';R()">← change number</button>`)
+:`<b>Email</b><input id="em" type="email" placeholder="you@example.com"><input id="pw" type="password" placeholder="Password (8+ characters)"><button class="btn" onclick="emailLogin()">Sign in</button><button class="btn o" onclick="emailReg()">Create account</button><button class="link" onclick="magicReq()">✨ Email me a magic link instead</button>`}</div></div>`}
+function phoneScr(){return `<div class="scr"><div class="brand"><div class="logo">📞</div><h2>Verify your phone</h2><div class="mu">NIRA needs a verified number to call you. You only do this once.</div></div><div class="cd plain">
+${pv.step=='req'?`<input id="pp" type="tel" placeholder="+91 98765 43210"><button class="btn" onclick="pvSend()">Send OTP</button>`:`${pv.dev?`<div class="hint">🧪 Dev mode OTP: <b>${pv.dev}</b></div>`:''}<input id="pc" inputmode="numeric" maxlength="6" placeholder="6-digit OTP" value="${pv.dev||''}"><button class="btn" onclick="pvVer()">Verify</button>`}
+<button class="link" onclick="screen='app';R()">Skip for now (calls stay off)</button></div></div>`}
+function home(){const p=pending(),n=p[0];return `<div class="scr">
+${n?`<div class="next"><span class="chip t">${when(daysTo(n.due_at))}</span><div class="big">${CAT[n.category][0]} ${esc(n.title)}</div><div class="cdn" id="cd" data-t="${n.due_at}">${cdText(n.due_at)}</div><div class="mu">${fmt(n.due_at)}${n.repeat!='none'?' · 🔁 '+n.repeat:''}${ST.calls_enabled?' · NIRA calls at '+ST.call_time:' · calls are off'}</div>
+<button class="btn" style="background:#ffe066;color:#5a3d00;box-shadow:none" onclick="startCall(${n.id})">📞 Preview NIRA's call</button></div>`:`<div class="next"><div class="big">All clear ✅</div><div class="mu">No pending deadlines. Add one in Deadlines.</div></div>`}
+<h3 style="margin:14px 0 8px">Coming up</h3>${p.slice(1,6).map(i=>`<div class="cd row" style="--c:${CAT[i.category][2]}"><span style="font-size:22px">${CAT[i.category][0]}</span><div class="sp"><b>${esc(i.title)}</b><div class="mu">${fmt(i.due_at)}</div></div>${catChip(i.category)}</div>`).join('')||'<p class="mu">Nothing else pending.</p>'}</div>`}
+function dead(){const e=D.find(x=>x.id==edit),v=e?{t:e.title,k:e.category,d:e.due_at.slice(0,10),tm:e.due_at.slice(11,16),r:e.repeat,n:e.notes}:{t:'',k:'emi',d:offd(1),tm:'09:00',r:'none',n:''};
+return `<div class="scr"><div class="cd plain"><h3>${e?'✏️ Edit deadline':'➕ Add deadline'}</h3><input id="nt" maxlength="120" placeholder="e.g. Car loan EMI" value="${esc(v.t)}">
+<select id="nk">${Object.entries(CAT).map(([k,c])=>`<option value="${k}" ${v.k==k?'selected':''}>${c[0]} ${c[1]}</option>`).join('')}</select>
+<div class="two"><input id="nd" type="date" value="${v.d}"><input id="ntm" type="time" value="${v.tm}"></div>
+<select id="nr">${[['none','No repeat'],['monthly','🔁 Every month'],['yearly','🔁 Every year']].map(([k,l])=>`<option value="${k}" ${v.r==k?'selected':''}>${l}</option>`).join('')}</select>
+<textarea id="nn" rows="2" maxlength="1000" placeholder="Notes (optional)">${esc(v.n)}</textarea>
+<button class="btn" onclick="save()">${e?'Save changes':'Save deadline'}</button>${e?`<button class="btn o" onclick="edit=null;R()">Cancel</button>`:''}</div>
+${D.slice().sort((a,b)=>new Date(a.due_at)-new Date(b.due_at)).map(i=>`<div class="cd" style="--c:${CAT[i.category][2]};${i.done?'opacity:.55':''}"><div class="row"><span style="font-size:22px">${CAT[i.category][0]}</span><div class="sp"><b>${esc(i.title)}</b><div class="mu">${fmt(i.due_at)} · ${i.done?'Done':when(daysTo(i.due_at))}${i.repeat!='none'?' · 🔁':''}${i.called?' · called':''}</div></div></div>${i.notes?`<div class="mu" style="margin:6px 0 0">📝 ${esc(i.notes)}</div>`:''}
+<div class="row" style="margin-top:8px">${catChip(i.category)}<span class="sp"></span><button class="btn o sm" onclick="toggle(${i.id})">${i.done?'Undo':'✓ Done'}</button><button class="btn o sm" onclick="startEdit(${i.id})">Edit</button><button class="btn o sm" style="color:#e63946;border-color:#e63946" onclick="del(${i.id})">✕</button></div></div>`).join('')}</div>`}
+const CST={'queued':'Queued','ringing':'Ringing','in-progress':'In progress','completed':'Completed','busy':'Busy','failed':'Failed','no-answer':'No answer','canceled':'Canceled'};
+const CSC={'completed':['#e3f8ea','#1b8a4b'],'in-progress':['#e3f8ea','#1b8a4b'],'queued':['#fff3d1','#8a6100'],'ringing':['#fff3d1','#8a6100']};
+const logp=()=>`<div class="scr"><h3 style="margin:6px 0 10px">Call history</h3>${CH.map(c=>{const k=CSC[c.status]||['#ffe3e6','#c62839'];return `<div class="cd row"><span style="font-size:22px">${c.status=='completed'||c.status=='in-progress'?'📞':'📵'}</span><div class="sp"><b>${esc(c.title)}</b><div class="mu">${esc(c.phone)} · ${fmt(c.call_time)}${c.duration_sec?' · '+c.duration_sec+'s':''}</div><div class="mu">Retries: ${c.retry_count}</div></div><span class="chip" style="background:${k[0]};color:${k[1]}">${esc(CST[c.status]||c.status)}</span></div>`}).join('')||'<p class="mu">No reminder calls yet.</p>'}${LOG.length?'<h3 style="margin:14px 0 10px">Previews</h3>':''}${LOG.map(l=>`<div class="cd row"><span style="font-size:22px">${l.st=='Missed'?'📵':'📞'}</span><div class="sp"><b>${esc(l.t)}</b><div class="mu">${l.at}${l.dur?' · '+l.dur+'s':''}</div></div><span class="chip" style="background:#ede4ff;color:#7c4dff">${l.st}</span></div>`).join('')}<div class="cd mu plain">Real calls come from the scheduler and Make Test Call in Settings. “Preview NIRA’s call” on Home is a demo and is listed under Previews.</div></div>`;
+function aiCard(){const A=AIS;
+ if(!A)return `<div class="cd plain"><b>🤖 AI assistant</b><div class="stt ${AIMSG?'no':'wt'}">${esc(AIMSG?AIMSG.t:'Loading…')}</div>${AIMSG?`<button class="link" onclick="AIMSG=null;loadAI();R()">Retry</button>`:''}</div>`;
+ const last=A.key_last4?'••••'+esc(A.key_last4):'',
+  base=A.configured?`✅ AI is ready · ${esc(AIN[A.provider]||A.provider)} · ${esc(A.model)} · ${A.source=='server'?"NIRA's server key":'your key '+last}`:'❌ AI is not set up yet. Add your key below.',
+  m=AIMSG&&AIMSG.ok===null?['wt',AIMSG.t]:AIMSG?[AIMSG.ok?'ok':'no',AIMSG.t]:[A.configured?'ok':'no',base];
+ return `<div class="cd plain"><b>🤖 AI assistant</b><div class="mu">Use your own Gemini or OpenAI key. It is stored encrypted on the server and never shown again.</div>
+<div class="stt ${m[0]}">${esc(m[1])}</div>
+<select id="aip" onchange="aiProv(this.value)">${Object.entries(AIN).map(([k,n])=>`<option value="${k}" ${A.provider==k?'selected':''}>${esc(n)}</option>`).join('')}</select>
+<input id="aim" maxlength="80" autocomplete="off" spellcheck="false" placeholder="${esc(A.default_models[A.provider]||'')}" value="${esc(A.model)}">
+${A.key_last4?`<div class="mu" style="margin-top:6px">Saved key: <b>${last}</b></div>`:''}<input id="aik" type="password" autocomplete="new-password" maxlength="512" spellcheck="false" placeholder="${A.key_last4?'Paste a new key to replace it':'Paste your API key'}">
+<div class="two"><button class="btn" onclick="aiSave()">Save</button><button class="btn o" onclick="aiTest()">Test</button></div>
+${A.source=='user'?`<button class="link" style="color:#e63946" onclick="aiDel()">Remove my key</button>`:''}</div>`}
+function sets(){const sw=(on,f)=>`<button class="sw ${on?'on':''}" onclick="${f}" aria-label="toggle"></button>`,S=ST;
+return `<div class="scr"><div class="cd plain"><b>👤 ${esc(U.name||'You')}</b><div class="mu">${esc(U.email||'')}</div><div class="row" style="margin-top:6px"><div class="sp"><b>📱 ${S.phone?esc(S.phone):'No phone yet'}</b><div class="mu">${S.phone_verified?'Verified ✅':'Not verified'}</div></div><button class="btn o sm" onclick="pv={step:'req'};screen='phone';R()">${S.phone?'Change':'Add'}</button></div></div>
+<div class="cd plain"><div class="row"><div class="sp"><b>Proactive calls</b><div class="mu">NIRA phones you before deadlines</div></div>${sw(S.calls_enabled,'callsToggle()')}</div>${S.consent_to_call?`<button class="link" onclick="setS({consent_to_call:false})">Withdraw calling consent</button>`:'<div class="mu">You will be asked for consent when you switch this on.</div>'}<button class="link" onclick="testCall()">📞 Make Test Call</button></div>
+<div class="cd plain"><div class="row"><div class="sp"><b>Speak amounts aloud</b><div class="mu">Off = NIRA never says amounts or account numbers</div></div>${sw(S.speak_sensitive,'setS({speak_sensitive:'+!S.speak_sensitive+'})')}</div></div>
+<div class="cd plain"><b>Language</b><select onchange="setS({language:this.value})"><option value="ta" ${S.language=='ta'?'selected':''}>தமிழ் (Tanglish)</option><option value="en" ${S.language=='en'?'selected':''}>English</option></select>
+<b>Call how early?</b><select onchange="setS({lead_days:+this.value})">${[[0,'Same day'],[1,'1 day before'],[2,'2 days before']].map(([v,l])=>`<option value="${v}" ${S.lead_days==v?'selected':''}>${l}</option>`).join('')}</select>
+<b>Call time</b><select onchange="setS({call_time:this.value})">${[7,8,9,10,12,17,18,20].map(h=>`<option value="${pad(h)}:00" ${S.call_time==pad(h)+':00'?'selected':''}>${t12('0000-00-00T'+pad(h)+':00')}</option>`).join('')}</select></div>
+${aiCard()}<button class="btn o" onclick="logout()">Sign out</button><button class="link" style="color:#e63946" onclick="delAcc()">Delete my account &amp; data</button></div>`}
+function ring(){const c=call,live=c.st=='live',ta=ST.language=='ta';return `<div class="ov"><div class="mu" style="color:#ffe9f5">${live?'On call with NIRA':'Incoming call'}</div><div class="av ${live?'':'r'}">N</div><h2>NIRA</h2><div class="mu" style="color:#ffe9f5">${esc(c.i.title)} reminder</div>
+${live?`<div class="tr">${c.tr.map(m=>`<div class="${m.n?'':'me'}">${esc(m.t)}</div>`).join('')}</div><div class="cb"><button class="btn g" onclick="reply('ok')">${ta?'ஆமா / Paid':'Yes / Paid'}</button><button class="btn w" onclick="reply('later')">${ta?'பிறகு':'Later'}</button></div><button class="btn r" onclick="endCall()">End call</button>`
+:`<div class="sp"></div><div class="cb"><button class="btn r" onclick="endCall()">Decline</button><button class="btn g" onclick="answer()">Answer</button></div>`}</div>`}
+/* ---- Voice screen. The browser turns speech into text; only the text goes to the server (/assistant/*).
+   Nothing is saved until the user confirms the card. Every piece of text is escaped with esc() or set with textContent. ---- */
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition,TTS=!!(window.speechSynthesis&&window.SpeechSynthesisUtterance);
+const vt=(en,ta)=>ST&&ST.language=='ta'?ta:en,vlang=()=>ST&&ST.language=='ta'?'ta-IN':'en-IN';
+let V={st:'idle',live:'',log:[],card:null,err:null,noai:false,txt:'',rec:null,gen:0,busy:false,ct:0,wd:0,voice:true},vTok=0;
+try{V.voice=localStorage.getItem('nira_voice')!=='0'}catch(e){}
+const V_YES=new Set(['yes','yeah','yep','yup','ok','okay','sure','confirm','confirmed','correct','right','sari','seri','saree','aama','aam','ama','aamam','ஆம்','ஆமா','ஆமாம்','சரி','சரிங்க','உறுதி','ஓகே']);
+const V_NO=new Set(['no','nope','nah','cancel','stop','never','dont','vendam','vendaam','venda','illa','illai','ille','இல்லை','இல்ல','வேண்டாம்','வேணாம்','ரத்து','நிறுத்து']);
+const V_FILL=new Set(['please','pls','thanks','thank','you','it','that','this','da','di','ma','pa','nira','pannunga','panunga','pannu','pannungal','seiyunga','பண்ணுங்க','பண்ணு','செய்யுங்கள்']);
+function vYN(t){const w=t.toLowerCase().split(/[^\p{L}\p{M}\p{N}]+/u).filter(Boolean);if(!w.length||w.length>4)return'';
+ let y=0,n=0;for(const x of w){if(V_YES.has(x))y++;else if(V_NO.has(x))n++;else if(!V_FILL.has(x))return''}
+ return y&&!n?'y':n&&!y?'n':''}
+const vEx=()=>ST&&ST.language=='ta'?['நாளைக்கு காலை 9 மணிக்கு கரண்ட் பில் கட்டணும்','அடுத்த வெள்ளிக்கிழமை மாலை 6 மணிக்கு என் கார் EMI கட்டணும்']:['Tomorrow 9am pay electricity bill','DBMS assignment 3 October'];
+const vWhen=iso=>{const d=new Date(iso);if(isNaN(d))return String(iso);return d.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short',...(d.getFullYear()!=new Date().getFullYear()?{year:'numeric'}:{})})+' · '+t12(iso)};
+const vSets=()=>{tab='set';R()};
+function vStatus(){return V.st=='listening'?vt('Listening… tap the mic when you are done','கேட்கிறேன்… முடிந்ததும் மைக்கைத் தட்டுங்கள்')
+ :V.st=='thinking'?vt('NIRA is thinking…','NIRA யோசிக்கிறது…')
+ :V.st=='speaking'?vt('NIRA is speaking… tap the mic to interrupt','NIRA பேசுகிறது… இடைமறிக்க மைக்கைத் தட்டுங்கள்')
+ :V.card?vt('Tap the mic and say “yes” or “no”, or use the buttons','மைக்கைத் தட்டி “ஆமா” அல்லது “வேண்டாம்” என்று சொல்லுங்கள், அல்லது பொத்தான்களைப் பயன்படுத்துங்கள்')
+ :SR?vt('Tap the mic and speak','மைக்கைத் தட்டிப் பேசுங்கள்'):''}
+/* Light repaint while listening/speaking: only textContent + attributes, never innerHTML, so nothing else is disturbed. */
+function vPaint(){if(tab!='voice'||screen!='app')return;const m=$('#vmic'),s=$('#vst'),l=$('#vlive'),lis=V.st=='listening';
+ if(m){m.className='mic'+(lis?' on':'');m.textContent=lis?'⏹️':V.st=='thinking'?'…':'🎙️';m.disabled=V.st=='thinking';m.setAttribute('aria-pressed',String(lis));m.setAttribute('aria-label',lis?vt('Stop listening','கேட்பதை நிறுத்து'):vt('Start listening','கேட்கத் தொடங்கு'))}
+ if(s)s.textContent=vStatus();if(l)l.textContent=V.live}
+function vCard(){const a=V.card;if(!a)return'';
+ const cur=a.deadline_id!=null?D.find(x=>x.id==a.deadline_id):null,ch=a.changes||{},up=a.kind=='update',add=a.kind=='add';
+ const k=CAT[ch.category]?ch.category:cur&&CAT[cur.category]?cur.category:'other',c=CAT[k],due=ch.due_at||(cur?cur.due_at:''),rp=ch.repeat||(cur?cur.repeat:add?'none':'');
+ const RP={none:vt('No repeat','மீண்டும் இல்லை'),monthly:'🔁 '+vt('Every month','ஒவ்வொரு மாதமும்'),yearly:'🔁 '+vt('Every year','ஒவ்வொரு வருடமும்')};
+ const KL={add:vt('➕ New deadline','➕ புதிய deadline'),update:vt('✏️ Change deadline','✏️ deadline மாற்றம்'),complete:vt('✅ Mark as done','✅ முடிந்ததாகக் குறி'),delete:vt('🗑️ Delete deadline','🗑️ deadline நீக்கு')};
+ const mk=f=>up&&ch[f]!==undefined?' ✏️':'',row=(l,v)=>`<div class="vf"><span class="mu">${esc(l)}</span><b style="text-align:right">${v}</b></div>`;
+ return `<div class="cd vcard" style="--c:${c[2]}" role="group" aria-label="${esc(vt('Please confirm','உறுதி செய்யுங்கள்'))}">
+<div class="mu"><b>${esc(KL[a.kind]||'')}</b></div>
+<div class="row" style="margin:6px 0"><span style="font-size:30px">${c[0]}</span><div class="sp"><b style="font-size:17px">${esc(a.title)}</b>${up&&ch.title&&ch.title!==a.title?`<div>→ <b>${esc(ch.title)}</b> ✏️</div>`:''}</div></div>
+${add||ch.category||cur?row(vt('Category','வகை'),catChip(k)+mk('category')):''}
+${due?row(vt('Date & time','தேதி & நேரம்'),esc(vWhen(due))+mk('due_at')):add?row(vt('Date & time','தேதி & நேரம்'),'—'):''}
+${rp?row(vt('Repeat','மீண்டும்'),esc(RP[rp]||rp)+mk('repeat')):''}
+${ch.notes?row(vt('Notes','குறிப்பு'),esc(ch.notes)+mk('notes')):''}
+<div class="two"><button class="btn g" onclick="vConfirm()">✓ ${esc(vt('Confirm','உறுதி'))}</button><button class="btn r" onclick="vCancel()">✕ ${esc(vt('Cancel','ரத்து'))}</button></div></div>`}
+function vscr(){
+ const noai=V.noai||(AIS&&AIS.configured===false),lis=V.st=='listening',ex=vEx();
+ return `<div class="scr">
+${noai?`<div class="cd" style="--c:var(--or)"><b>🤖 ${esc(vt('AI is not set up yet','AI இன்னும் அமைக்கப்படவில்லை'))}</b><div class="mu">${esc(vt('Add your Gemini or OpenAI key in Settings so NIRA can understand you.','NIRA உங்களைப் புரிந்துகொள்ள Settings-ல் உங்கள் Gemini அல்லது OpenAI key ஐச் சேர்க்கவும்.'))}</div><button class="btn" onclick="vSets()">⚙️ ${esc(vt('Go to Settings','Settings-க்குச் செல்'))}</button></div>`:''}
+${TTS?`<div class="row"><div class="sp mu">🔊 ${esc(vt('Speak NIRA’s replies','NIRA பதில்களைச் சத்தமாகச் சொல்'))}</div><button class="sw ${V.voice?'on':''}" onclick="vVoice()" role="switch" aria-checked="${V.voice}" aria-label="${esc(vt('Voice replies','குரல் பதில்கள்'))}"></button></div>`:''}
+${SR?`<div style="text-align:center"><button id="vmic" class="mic${lis?' on':''}" onclick="vMic()" aria-pressed="${lis}" aria-label="${esc(lis?vt('Stop listening','கேட்பதை நிறுத்து'):vt('Start listening','கேட்கத் தொடங்கு'))}"${V.st=='thinking'?' disabled':''}>${lis?'⏹️':V.st=='thinking'?'…':'🎙️'}</button>
+<div id="vst" class="vst" role="status">${esc(vStatus())}</div><div id="vlive" class="vlive">${esc(V.live)}</div>
+<div class="mu">${esc(vt('Listening language: English (en-IN)','கேட்கும் மொழி: தமிழ் (ta-IN)'))} · <button class="link" style="padding:0;font-size:13px" onclick="vSets()">${esc(vt('change','மாற்று'))}</button></div></div>`
+:`<div class="stt wt">🎙️ ${esc(vt('Voice input is not supported in this browser (try Chrome or Edge). You can type your request below.','இந்த உலாவியில் குரல் உள்ளீடு ஆதரிக்கப்படவில்லை (Chrome அல்லது Edge முயலுங்கள்). கீழே தட்டச்சு செய்யலாம்.'))}</div>`}
+${V.err?`<div class="stt no" role="alert">${esc(V.err.t)}</div>`:''}
+${vCard()}
+<div class="row" style="margin-top:8px"><input id="vtx" class="sp" maxlength="500" autocomplete="off" placeholder="${esc(vt('Or type here…','அல்லது இங்கே தட்டச்சு செய்யுங்கள்…'))}" value="${esc(V.txt)}" oninput="V.txt=this.value" onkeydown="if(event.key==='Enter'){event.preventDefault();vBox()}"><button class="btn sm" onclick="vBox()" aria-label="${esc(vt('Send','அனுப்பு'))}">➤</button></div>
+<div class="hint"><b>${esc(vt('Try saying…','இப்படிச் சொல்லிப் பாருங்கள்…'))}</b>${ex.map((e,i)=>`<button class="vex" onclick="vHint(${i})">“${esc(e)}”</button>`).join('')}</div>
+<div style="margin-top:10px">${V.log.slice(-6).reverse().map(m=>`<div class="vb ${m.me?'me':'ni'}">${esc(m.t)}</div>`).join('')}</div></div>`}
+function vHint(i){V.txt=vEx()[i]||'';R();const e=$('#vtx');if(e)e.focus()}
+function vVoice(){V.voice=!V.voice;try{localStorage.setItem('nira_voice',V.voice?'1':'0')}catch(e){}if(!V.voice){try{speechSynthesis.cancel()}catch(e){}}R()}
+function vBox(){if(V.st=='thinking'||V.busy)return;const t=val('vtx').trim();if(!t)return toast(vt('Type something first','முதலில் ஏதாவது தட்டச்சு செய்யுங்கள்'));V.txt='';vSend(t)}
+/* Speaking. A token makes sure an interrupted or superseded utterance can never trigger its "then" step. */
+function vSpeak(t,then){const my=++vTok;let d=0;
+ const fin=()=>{if(d||my!==vTok)return;d=1;clearTimeout(V.wd);if(V.st=='speaking')V.st='idle';vPaint();then&&then()};
+ if(!V.voice||!TTS||!t){fin();return}
+ try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=/[\u0B80-\u0BFF]/.test(t)?'ta-IN':'en-IN';
+  const vs=speechSynthesis.getVoices(),vo=vs.find(x=>x.lang.replace('_','-')==u.lang)||vs.find(x=>x.lang.slice(0,2)==u.lang.slice(0,2));if(vo)u.voice=vo;
+  u.onend=fin;u.onerror=fin;V.wd=setTimeout(fin,Math.min(30000,5000+t.length*140));V.st='speaking';vPaint();speechSynthesis.speak(u)}catch(e){fin()}}
+function vStopSpeak(){vTok++;clearTimeout(V.wd);if(V.st=='speaking')V.st='idle';try{TTS&&speechSynthesis.cancel()}catch(e){}}
+/* Listening */
+function vMicErr(c){V.st='idle';V.live='';
+ const m=c=='not-allowed'||c=='service-not-allowed'?vt('The microphone is blocked. Allow the microphone for this site in your browser settings, then tap the mic again. (Voice needs https or localhost.)','மைக் தடுக்கப்பட்டுள்ளது. உலாவி அமைப்புகளில் இந்தத் தளத்துக்கு மைக்கை அனுமதித்து, மீண்டும் மைக்கைத் தட்டுங்கள். (குரலுக்கு https அல்லது localhost தேவை.)')
+ :c=='no-speech'?vt('I did not hear anything. Tap the mic and try again, or type below.','எதுவும் கேட்கவில்லை. மைக்கைத் தட்டி மீண்டும் முயலுங்கள், அல்லது கீழே தட்டச்சு செய்யுங்கள்.')
+ :c=='network'?vt('The speech service lost its connection. Check your internet and try again, or type below.','பேச்சு சேவையின் இணைப்பு துண்டிக்கப்பட்டது. இணையத்தைச் சரிபார்த்து மீண்டும் முயலுங்கள், அல்லது கீழே தட்டச்சு செய்யுங்கள்.')
+ :c=='audio-capture'?vt('No microphone was found. Connect one or type below.','மைக் எதுவும் கிடைக்கவில்லை. ஒன்றை இணைக்கவும் அல்லது கீழே தட்டச்சு செய்யவும்.')
+ :c=='language-not-supported'?vt('This browser cannot recognise this language. Try the other language in Settings, or type below.','இந்த உலாவி இந்த மொழியை அறிய முடியவில்லை. Settings-ல் மற்ற மொழியை முயலுங்கள், அல்லது தட்டச்சு செய்யுங்கள்.')
+ :vt('Voice input stopped unexpectedly. Try again or type below.','குரல் உள்ளீடு எதிர்பாராமல் நின்றது. மீண்டும் முயலுங்கள் அல்லது தட்டச்சு செய்யுங்கள்.');
+ V.err={t:m};R()}
+function vListen(){
+ if(!SR||V.rec||V.busy)return;vStopSpeak();
+ let rec;try{rec=new SR();rec.lang=vlang();rec.interimResults=true;rec.continuous=false;rec.maxAlternatives=1}catch(e){return vMicErr('')}
+ const g=V.gen;let err='';V.rec=rec;V.live='';V.err=null;V.st='listening';
+ rec.onresult=e=>{let s='';for(let k=0;k<e.results.length;k++)s+=e.results[k][0].transcript;V.live=s.trim();const l=$('#vlive');if(l&&tab=='voice')l.textContent=V.live};
+ rec.onerror=e=>{err=(e&&e.error)||'error'};
+ rec.onend=()=>{if(V.rec!==rec)return;V.rec=null;if(g!==V.gen)return;const t=V.live.trim();V.live='';V.st='idle';
+  if(err&&err!='no-speech'&&err!='aborted')return vMicErr(err);
+  if(t)return vSend(t);
+  vMicErr('no-speech')};
+ R();try{rec.start()}catch(e){V.rec=null;vMicErr('')}}
+function vMic(){if(V.st=='thinking'||V.busy)return;if(V.st=='listening'&&V.rec){try{V.rec.stop()}catch(e){}return}vListen()}
+function vLeave(){V.gen++;vStopSpeak();if(V.rec){const r=V.rec;V.rec=null;try{r.abort()}catch(e){}}V.st='idle';V.live=''}
+function vReset(){vLeave();clearTimeout(V.ct);V.log=[];V.card=null;V.err=null;V.noai=false;V.txt=''}
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&(V.st=='listening'||V.st=='speaking')){vLeave();vPaint()}});
+/* Talking to the server */
+function vFail(e){V.st='idle';if(screen!='app')return;
+ if(e&&e.code=='ai_not_configured'){V.noai=true;V.err=null}
+ else V.err={t:e&&e.en?errm(e):vt('Something went wrong. Please try again.','ஏதோ தவறு நடந்தது. மீண்டும் முயற்சிக்கவும்.')};R()}
+function vDropCard(remote){clearTimeout(V.ct);const c=V.card;V.card=null;if(c&&remote)api('/assistant/cancel/'+c.id,{m:'POST'}).catch(()=>{})}
+function vArmCard(a){clearTimeout(V.ct);V.ct=setTimeout(()=>{if(V.card&&V.card.id==a.id){V.card=null;
+ V.log.push({me:0,t:vt('That request expired. Please say it again.','அந்தக் கோரிக்கை காலாவதியாகிவிட்டது. மீண்டும் சொல்லுங்கள்.')});if(tab=='voice'&&screen=='app')R()}},Math.max(1,+a.expires_in_seconds||600)*1000)}
+async function vSend(text){
+ text=String(text||'').trim().slice(0,500);if(!text)return;
+ if(V.rec){const r=V.rec;V.rec=null;try{r.abort()}catch(e){}}
+ vStopSpeak();V.err=null;V.live='';V.log.push({me:1,t:text});
+ if(V.card){const yn=vYN(text);if(yn){V.st='idle';return yn=='y'?vConfirm():vCancel()}}
+ if(V.card)vDropCard(true);
+ const g=V.gen;V.st='thinking';R();let r;
+ try{r=await api('/assistant/command',{b:{text}})}catch(e){if(g!==V.gen||screen!='app')return;V.txt=text;return vFail(e)}
+ if(g!==V.gen)return;
+ V.noai=false;V.log.push({me:0,t:String(r.reply_text||'')});
+ if(r.action){V.card=r.action;vArmCard(r.action)}
+ V.st='idle';R();
+ vSpeak(r.reply_text,()=>{if(g===V.gen&&r.needs_more_info&&!r.action&&tab=='voice'&&screen=='app')vListen()})}
+async function vConfirm(){
+ const c=V.card;if(!c||V.busy)return;V.busy=true;vStopSpeak();V.err=null;V.st='thinking';R();let msg,stale=false;
+ try{await api('/assistant/confirm/'+c.id,{m:'POST'});vDropCard(false);
+  msg=({add:vt('Done, I added it.','சரி, சேர்த்துவிட்டேன்.'),update:vt('Done, I updated it.','சரி, மாற்றிவிட்டேன்.'),complete:vt('Done, marked as completed.','சரி, முடிந்ததாகக் குறித்துவிட்டேன்.'),delete:vt('Done, I deleted it.','சரி, நீக்கிவிட்டேன்.')})[c.kind]||vt('Done.','சரி.');
+  try{D=await api('/deadlines?status=all')}catch(e){stale=true}   /* fresh list: Home countdown and Deadlines redraw from D */
+  V.log.push({me:0,t:'✅ '+msg+(stale?' '+vt('(The list could not refresh. Open Deadlines to reload.)','(பட்டியலைப் புதுப்பிக்க முடியவில்லை. Deadlines-ஐத் திறந்து பாருங்கள்.)'):'')})}
+ catch(e){V.busy=false;if(screen!='app')return;if(e&&['action_expired','action_not_pending','not_found'].includes(e.code))vDropCard(false);return vFail(e)}
+ V.busy=false;V.st='idle';if(screen=='app'){R();if(tab=='voice')vSpeak(msg)}}
+async function vCancel(){
+ const c=V.card;if(!c||V.busy)return;V.busy=true;vStopSpeak();V.err=null;V.st='thinking';R();let msg;
+ try{await api('/assistant/cancel/'+c.id,{m:'POST'})}
+ catch(e){if(!(e&&['action_expired','action_not_pending','not_found'].includes(e.code))){V.busy=false;if(screen!='app')return;return vFail(e)}}
+ vDropCard(false);msg=vt('Okay, cancelled. Nothing was changed.','சரி, ரத்து செய்துவிட்டேன். எதுவும் மாற்றப்படவில்லை.');V.log.push({me:0,t:msg});
+ V.busy=false;V.st='idle';if(screen=='app'){R();if(tab=='voice')vSpeak(msg)}}
+
+function R(){if((tab!='voice'||screen!='app')&&(V.st!='idle'||V.rec))vLeave();
+ if(screen=='auth')return $('#app').innerHTML=authScr();if(screen=='phone')return $('#app').innerHTML=phoneScr();
+ const P={home,dead,voice:vscr,log:logp,set:sets}[tab];
+ $('#app').innerHTML=`<div class="hd"><div class="logo">N</div><h1>${{home:'NIRA',dead:'Deadlines',voice:'Voice',log:'Calls',set:'Settings'}[tab]}</h1></div>${P()}<nav>${[['home','🏠','Home'],['dead','📅','Deadlines'],['voice','🎙️','Voice'],['log','📞','Calls'],['set','⚙️','Settings']].map(([k,i,l])=>`<button class="${tab==k?'on':''}" onclick="tab='${k}';if(tab=='log')loadCH();R()"><b>${i}</b>${l}</button>`).join('')}</nav>${call?ring():''}`}
+setInterval(()=>{const e=$('#cd');if(e)e.textContent=cdText(e.dataset.t)},1000);
+setInterval(()=>{if(screen=='app'&&tok&&!call&&tab=='home')load().catch(()=>{})},60000);
+(async()=>{const m=new URLSearchParams(location.search).get('magic');
+ if(m){history.replaceState(null,'','/');try{return await okAuth(await api('/auth/email/magic/verify',{b:{token:m}}))}catch(e){toast(errm(e))}}
+ tok?boot():R()})();
+</script><script>if('serviceWorker'in navigator)addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}))</script>
+</body></html>
